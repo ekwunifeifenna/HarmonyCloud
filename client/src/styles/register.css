@@ -1,0 +1,22 @@
+.authentication{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.authentication-form{
+    width: 400px;
+
+}
+
+.authentication .card-title{
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: rgb(35, 136, 136);
+    color: white !important;
+    max-width: max-content !important;
+    padding: 7px 15px !important;
+    margin-left: -30px;
+    border-bottom-left-radius: 10px !important;
+}

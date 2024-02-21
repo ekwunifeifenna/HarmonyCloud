@@ -1,0 +1,66 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+/*antd override*/
+input{
+    border-radius: 2px;
+    border: 1px solid rgb(201, 186, 186) !important;
+    height: 40px !important;
+}
+
+input:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid grey !important;
+}
+
+label{
+    font-size: 14px;
+    color: black;
+
+}
+
+.ant-form-item{
+    margin: 10px 0 !important;
+}
+
+
+/*GLOBAL STYLING*/
+.card{
+    box-shadow: 0 0 2px grey;
+    border-radius: 0 !important;
+}
+
+.card-title{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.normal-text{
+    font-size: 1.2rem;
+}
+
+.primary-button{
+    background-color: rgb(35, 136, 136)!important;
+    border-color: rgb(35, 136, 136) !important;
+    height: 40px !important;
+    width: 100% !important;
+    color: white !important;
+    font-size: 16px !important;
+}
+
+.anchor{
+    color: black !important;
+    text-decoration: underline !important;
+    font-size: 16px !important;
+
+}
+
+.anchor:hover{
+    text-decoration: underline !important;
+    color: rgb(35, 136, 136) !important;
+}
