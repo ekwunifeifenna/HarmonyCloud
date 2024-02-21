@@ -1,11 +1,14 @@
 import '../styles/register.css'
 import { Form, Input, Button } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
 
 const Login = () => {
+  const {loading} = useSelector((state) => state.alert);
+  console.log(loading)
   const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
