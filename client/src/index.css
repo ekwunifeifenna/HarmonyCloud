@@ -30,6 +30,30 @@ label{
 
 
 /*GLOBAL STYLING*/
+.spinner-parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    /* opacity: 0.8; */
+    background-color: rgba(0, 0, 0, 0.781);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+
+
+}
+
+.spinner-border{
+    width: 5rem;
+    height: 5rem;
+    color: rgb(35, 136, 136) !important; 
+
+}
+
+
 .card{
     box-shadow: 0 0 2px grey;
     border-radius: 0 !important;
@@ -63,4 +87,11 @@ label{
 .anchor:hover{
     text-decoration: underline !important;
     color: rgb(35, 136, 136) !important;
+}
+
+.header-action-icon{
+    font-size: 30px;
+    color: black;
+    cursor: pointer;
+    padding-left: 10px;
 }

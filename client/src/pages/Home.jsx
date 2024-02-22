@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import axios from "axios";
-
+import Layout from "../components/Layout";
 const Home = () => {
   const getData = async () => {
     try {
@@ -22,7 +22,11 @@ const Home = () => {
   useEffect(() => {
     getData();
   }, []);
-  return <div>Harmony Cloud</div>;
+  return (
+    <Layout>
+      <div>Homepage</div>
+    </Layout>
+  );
 };
 
 export default Home;
