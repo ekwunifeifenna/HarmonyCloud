@@ -3,9 +3,13 @@ import "../styles/layout.css";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const {user} = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const location = useLocation();
   const userMenu = [
     {
@@ -23,6 +27,43 @@ const Layout = ({ children }) => {
       path: "/apply-doctor",
       icon: "ri-hospital-line",
     },
+
+    {
+      name: "Medical Records",
+      path: "/medical-records",
+      icon: "ri-survey-line",
+    },
+    {
+      name: "Billing",
+      path: "/billing",
+      icon: "ri-bill-line",
+    },
+    {
+      name: "profile",
+      path: "/profile",
+      icon: "ri-user-line",
+    },
+    {
+      name: "Settings",
+      path: "/settings",
+      icon: "ri-settings-2-line",
+    },
+
+ 
+  ];
+
+  const adminMenu = [
+    {
+      name: "Home",
+      path: "/",
+      icon: "ri-home-line",
+    },
+    {
+      name : "Doctors",
+      path: "/doctors",
+      icon: "ri-nurse-line"
+    },
+    
     {
       name: "clients",
       path: "/clients",
@@ -48,22 +89,16 @@ const Layout = ({ children }) => {
       path: "/settings",
       icon: "ri-settings-2-line",
     },
-
-    {
-      name: "Logout",
-      path: "/logout",
-      icon: "ri-logout-box-line",
-    },
   ];
 
-  const menuToBeRendered = userMenu;
+  const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
 
   return (
     <div className="main">
       <div className="d-flex layout">
         <div className={`${collapsed ? `collapsed-sidebar` : `sidebar`}`}>
           <div className="sidebar-header">
-            <h1>Harmony Cloud</h1>
+            <h1 className='logo'>{`${collapsed ? `HC`: `Harmony Cloud`}`}</h1>
           </div>
 
           <div className="menu">
@@ -79,10 +114,20 @@ const Layout = ({ children }) => {
                 </div>
               );
             })}
+
+            {/**The logout part of the sidebar menu */}
+             <div className={`menu-item`} onClick={()=>{
+              localStorage.clear();
+              navigate('/login');
+             }}>
+                  <i className='ri-logout-circle-line'></i>
+                  {!collapsed && <Link to='/login'>Logout</Link>}
+                </div>
           </div>
         </div>
 
         <div className="content">
+          {/**This is the first part of the header */}
           <div className="header">
             {collapsed ?             <i
               className="ri-menu-2-line header-action-icon"
@@ -91,6 +136,16 @@ const Layout = ({ children }) => {
             className="ri-close-fill header-action-icon"
             onClick={() => setCollapsed(true)}
           ></i>}
+
+          {/**This is the second part of the header */}
+          <div className="d-flex align-items-center px-3">
+          <i className="ri-notification-line header-action-icon mr-2 px-3"></i>
+          <Link className='anchor' to='/profile'>{user?.name}</Link>
+
+          </div>
+          
+
+
 
           </div>
 
