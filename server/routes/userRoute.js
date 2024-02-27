@@ -66,4 +66,16 @@ router.post('/get-user-info-by-id', authMiddleware, async(req, res)=>{
     }
 })
 
+router.post('/apply-doctor-account', async (req, res) => {
+    try {
+      
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({message: 'Error applying doctor account', success: false});
+        
+    }
+});
+
+
 module.exports = router;
