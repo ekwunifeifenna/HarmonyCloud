@@ -5,10 +5,11 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Badge } from "antd";
 
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
-  const {user} = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation();
   const userMenu = [
@@ -49,7 +50,7 @@ const Layout = ({ children }) => {
       icon: "ri-settings-2-line",
     },
 
- 
+
   ];
 
   const adminMenu = [
@@ -59,11 +60,11 @@ const Layout = ({ children }) => {
       icon: "ri-home-line",
     },
     {
-      name : "Doctors",
+      name: "Doctors",
       path: "/doctors",
       icon: "ri-nurse-line"
     },
-    
+
     {
       name: "clients",
       path: "/clients",
@@ -98,7 +99,7 @@ const Layout = ({ children }) => {
       <div className="d-flex layout">
         <div className={`${collapsed ? `collapsed-sidebar` : `sidebar`}`}>
           <div className="sidebar-header">
-            <h1 className='logo'>{`${collapsed ? `HC`: `Harmony Cloud`}`}</h1>
+            <h1 className='logo'>{`${collapsed ? `HC` : `Harmony Cloud`}`}</h1>
           </div>
 
           <div className="menu">
@@ -116,34 +117,37 @@ const Layout = ({ children }) => {
             })}
 
             {/**The logout part of the sidebar menu */}
-             <div className={`menu-item`} onClick={()=>{
+            <div className={`menu-item`} onClick={() => {
               localStorage.clear();
               navigate('/login');
-             }}>
-                  <i className='ri-logout-circle-line'></i>
-                  {!collapsed && <Link to='/login'>Logout</Link>}
-                </div>
+            }}>
+              <i className='ri-logout-circle-line'></i>
+              {!collapsed && <Link to='/login'>Logout</Link>}
+            </div>
           </div>
         </div>
 
         <div className="content">
           {/**This is the first part of the header */}
           <div className="header">
-            {collapsed ?             <i
+            {collapsed ? <i
               className="ri-menu-2-line header-action-icon"
               onClick={() => setCollapsed(false)}
-            ></i> :             <i
-            className="ri-close-fill header-action-icon"
-            onClick={() => setCollapsed(true)}
-          ></i>}
+            ></i> : <i
+              className="ri-close-fill header-action-icon"
+              onClick={() => setCollapsed(true)}
+            ></i>}
 
-          {/**This is the second part of the header */}
-          <div className="d-flex align-items-center px-3">
-          <i className="ri-notification-line header-action-icon mr-2 px-3"></i>
-          <Link className='anchor' to='/profile'>{user?.name}</Link>
+            {/**This is the second part of the header FOR THE NOTIFICATIONS*/}
+            <div className="d-flex align-items-center px-3">
+              <Badge count={user?.unseenNotifications.length} onClick={()=>navigate('/notifications')}>
+                <i className="ri-notification-line header-action-icon mr-2 px-3"></i>
+              </Badge>
 
-          </div>
-          
+              <Link className='anchor mx-3' to='/profile' >{user?.name}</Link>
+
+            </div>
+
 
 
 

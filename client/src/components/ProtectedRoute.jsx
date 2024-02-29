@@ -10,7 +10,7 @@ import { showLoading, hideLoading } from '../redux/alertsSlice';
 
 const ProtectedRoute = (props) => {
 
-    const {user} = useSelector((state) => state.user);
+    const {user, reloadUser} = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     

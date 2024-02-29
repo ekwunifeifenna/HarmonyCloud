@@ -5,11 +5,11 @@ const doctorSchema = new mongoose.Schema(
         type: String,
         required: true,
     },
-    company: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'companies',
-        required: [true, 'Please enter your company id'],
-    },
+    // company: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'companies',
+    //     required: [true, 'Please enter your company id'],
+    // },
     firstName: {
         type: String,
         required: [true, 'Please enter your first name'],
