@@ -61,13 +61,13 @@ const Layout = ({ children }) => {
     },
     {
       name: "Doctors",
-      path: "/doctors",
+      path: "/admin/doctorslist",
       icon: "ri-nurse-line"
     },
 
     {
-      name: "clients",
-      path: "/clients",
+      name: "Clients",
+      path: "/admin/userslist",
       icon: "ri-service-line",
     },
     {
@@ -164,4 +164,4 @@ Layout.propTypes = {
   children: PropTypes.node,
 };
 
-export default Layout;
+export default Layout
