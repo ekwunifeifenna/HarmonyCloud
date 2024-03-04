@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { showLoading, hideLoading } from '../../redux/alertsSlice';
 import axios from 'axios';
 import { Table } from 'antd';
+import { Link } from 'react-router-dom';
 
 const UsersList = () => {
     const [users, setUsers] = useState([]);
@@ -61,7 +62,13 @@ const UsersList = () => {
     
   return (
     <Layout>
-      <h1 className='page-header'>Clients List</h1>
+        <div className='d-flex align-items-center justify-content-between'>
+        <h1 className='page-header'>Clients List</h1>
+        <Link to='/admin/add-client' className='link-button'>Add Client</Link>
+
+
+        </div>
+      
       <Table columns={columns} dataSource={users}/>
     </Layout>
   );

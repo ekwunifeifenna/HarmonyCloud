@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { showLoading, hideLoading } from '../../redux/alertsSlice';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 
 const DoctorsList = () => {
@@ -13,7 +15,7 @@ const DoctorsList = () => {
     const [doctors, setDoctors] = useState([]);
     const dispatch = useDispatch();
 
-    const getUsersData = async () => {
+    const getDoctorsData = async () => {
         try {
             dispatch(showLoading());
             const response = await axios.get('/api/admin/get-all-doctors', {
@@ -31,8 +33,29 @@ const DoctorsList = () => {
         }
     }
 
+    const changeDoctorStatus = async (record, status) => {
+        try {
+            dispatch(showLoading());
+            const response = await axios.post('/api/admin/change-doctor-account-status', {doctorId: record._id, userId: record.userId, status: status}, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            dispatch(hideLoading());
+            if (response.data.success) {
+                toast.success('Doctor status updated successfully');
+                getDoctorsData();
+            }
+        } catch (error) {
+            toast.error('Error changing doctor status');
+            
+            dispatch(hideLoading());
+
+        }
+    }
+
     useEffect(() => {
-        getUsersData()
+        getDoctorsData()
     }, []);
 
     const columns = [
@@ -59,8 +82,8 @@ const DoctorsList = () => {
             dataIndex: 'actions',
             render: (text, record) => (
                 <div className="d-flex">
-                    {record.status === 'pending' && <h1 className="anchor">Approve</h1>}
-                    {record.status === 'approved' && <h1 className="anchor">Block</h1>}
+                    {record.status === 'pending' && <h1 className="anchor" onClick={()=>changeDoctorStatus(record, 'approved')}>Approve</h1>}
+                    {record.status === 'approved' && <h1 className="anchor" onClick={()=>changeDoctorStatus(record, 'blocked')}>Block</h1>}
                 </div>
             )
         }
@@ -68,7 +91,12 @@ const DoctorsList = () => {
     ]
     return (
         <Layout>
-            <h1 className='page-header'>Doctors List</h1>
+            <div className="d-flex align-items-center justify-content-between">
+                <h1 className='page-header'>Therapist List</h1>   
+                <Link to='/admin/apply-doctor' className='link-button'>Add Therapist</Link>
+                
+                </div>
+            
             <Table columns={columns} dataSource={doctors} />
         </Layout>
     );

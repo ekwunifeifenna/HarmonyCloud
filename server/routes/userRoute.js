@@ -67,35 +67,35 @@ router.post('/get-user-info-by-id', authMiddleware, async(req, res)=>{
     }
 })
 
-router.post('/apply-doctor-account', authMiddleware, async (req, res) => {
-    try {
-        const newdoctor = new Doctor(req.body);
-        await newdoctor.save();
-        const adminUser = await User.findOne({isAdmin: true});
+// router.post('/apply-doctor-account', authMiddleware, async (req, res) => {
+//     try { 
+//         const newdoctor = new Doctor(req.body);
+//         await newdoctor.save();
+//         const adminUser = await User.findOne({isAdmin: true});
 
-        const unseenNotifications = adminUser.unseenNotifications
+//         const unseenNotifications = adminUser.unseenNotifications
 
-        //notification sent to admin
-        unseenNotifications.push({
-            type: "new doctor application",
-            message: `New doctor application from ${newdoctor.firstName} ${newdoctor.lastName}`,
-            data: {
-                doctorId: newdoctor._id,
-                name: newdoctor.firstName + ' ' + newdoctor.lastName,
-            },
-            onClickPath: '/admin/doctors'
-        })
-        await User.findOneAndUpdate(adminUser._id, { unseenNotifications});
-        res.status(200).send({message: 'Doctor account application submitted successfully', success: true});
+//         //notification sent to admin
+//         unseenNotifications.push({
+//             type: "new doctor application",
+//             message: `New doctor application from ${newdoctor.firstName} ${newdoctor.lastName}`,
+//             data: {
+//                 doctorId: newdoctor._id,
+//                 name: newdoctor.firstName + ' ' + newdoctor.lastName,
+//             },
+//             onClickPath: '/admin/doctors'
+//         })
+//         await User.findOneAndUpdate(adminUser._id, { unseenNotifications});
+//         res.status(200).send({message: 'Doctor account application submitted successfully', success: true});
 
       
         
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({message: 'Error applying doctor account', success: false});
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send({message: 'Error applying doctor account', success: false});
         
-    }
-});
+//     }
+// });
 
 router.post('/mark-all-notifications-as-seen', authMiddleware, async (req, res) => {
     try {

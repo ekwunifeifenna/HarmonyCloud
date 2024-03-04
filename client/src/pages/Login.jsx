@@ -47,8 +47,12 @@ const Login = () => {
             <Input placeholder='Password' type='password'/>
           </Form.Item>
 
-          <Button className='primary-button mt-3 my-2' htmlType='submit'>LOGIN</Button>
+          
+          <Button className='primary-button mt-3 my-2 full-width-button' htmlType='submit'>LOGIN</Button>
           <Link to='/register' className='anchor mt-2'>Click here Register</Link>
+          
+
+     
 
         </Form>
       </div>

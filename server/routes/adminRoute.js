@@ -45,4 +45,70 @@ router.get('/get-all-users', authMiddleware, async(req, res) => {
     }
   })
 
+
+  router.post('/change-doctor-account-status', authMiddleware, async(req, res) => {
+
+    try {
+        const { doctorId, status, userId } = req.body;
+        const doctor = await Doctor.findByIdAndUpdate(doctorId, {status: status});
+      
+
+        const user = await User.findOne({_id: userId});
+        const unseenNotifications = user.unseenNotifications
+
+        unseenNotifications.push({
+            type: "new doctor application status",
+            message: `Doctor application status updated to ${status} for ${doctor.firstName} ${doctor.lastName}`,
+            onClickPath: '/notifications',
+        })
+        await user.save();
+        const doctors = await Doctor.find({});
+
+        res.status(200).send({
+            message: 'Doctor status updated successfully', 
+            success: true, 
+            data: doctor
+        });
+     
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            message: 'Error fetching users',
+            success: false,
+            error
+        });
+        
+    }
+  })
+
+  router.post('/apply-doctor-account', authMiddleware, async (req, res) => {
+    try { 
+        const newdoctor = new Doctor(req.body);
+        await newdoctor.save();
+        const adminUser = await User.findOne({isAdmin: true});
+
+        const unseenNotifications = adminUser.unseenNotifications
+
+        //notification sent to admin
+        unseenNotifications.push({
+            type: "new doctor application",
+            message: `New Therapist application from ${newdoctor.firstName} ${newdoctor.lastName}`,
+            data: {
+                doctorId: newdoctor._id,
+                name: newdoctor.firstName + ' ' + newdoctor.lastName,
+            },
+            onClickPath: '/admin/doctors'
+        })
+        await User.findOneAndUpdate(adminUser._id, { unseenNotifications});
+        res.status(200).send({message: 'Therapist account application submitted successfully', success: true});
+
+      
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({message: 'Error applying therapist account', success: false});
+        
+    }
+});
+
   module.exports = router;

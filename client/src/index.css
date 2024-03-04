@@ -40,6 +40,11 @@ label{
     height: 40px !important;
 }
 
+/* .ant-select-selector {
+    outline: none !important;
+    box-shadow: none !important;
+  } */
+
 
 /*GLOBAL STYLING*/
 .spinner-parent{
@@ -94,6 +99,45 @@ label{
     color: white !important;
     font-size: 16px !important;
     width: max-content !important;
+    border-radius: 5px !important;
+    
+
+}
+
+.secondary-button{
+    background-color: grey !important;
+    /* border-color: rgb(35, 136, 136) !important; */
+    height: 40px !important;
+    width: 100% !important;
+    color: black !important;
+    font-size: 16px !important;
+    width: max-content !important;
+    border-radius: 5px !important;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.link-button{
+    background-color: rgb(35, 136, 136)!important;
+    border-color: rgb(35, 136, 136) !important;
+    height: 40px !important;
+    width: 100% !important;
+    color: white !important;
+    font-size: 16px !important;
+    width: max-content !important;
+    border-radius: 5px !important;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.gap-10{
+    gap: 10px;
+}
+
+
+.full-width-button{
+    width: 100% !important;
 }
 
 .anchor{
@@ -114,5 +158,10 @@ label{
     color: black;
     cursor: pointer;
     padding-left: 10px;
+}
+
+.country-state-city{
+    outline: none !important;
+    box-shadow: none !important;
 }
 

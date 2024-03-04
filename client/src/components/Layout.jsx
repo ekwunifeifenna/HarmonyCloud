@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
   const location = useLocation();
   const userMenu = [
     {
-      name: "Home",
+      name: "Dashboard",
       path: "/",
       icon: "ri-home-line",
     },
@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
       icon: "ri-file-list-line",
     },
     {
-      name: "Apply Doctor",
+      name: "Add Therapist",
       path: "/apply-doctor",
       icon: "ri-hospital-line",
     },
@@ -55,12 +55,12 @@ const Layout = ({ children }) => {
 
   const adminMenu = [
     {
-      name: "Home",
+      name: "Dashboard",
       path: "/",
       icon: "ri-home-line",
     },
     {
-      name: "Doctors",
+      name: "Therapists",
       path: "/admin/doctorslist",
       icon: "ri-nurse-line"
     },
@@ -99,7 +99,7 @@ const Layout = ({ children }) => {
       <div className="d-flex layout">
         <div className={`${collapsed ? `collapsed-sidebar` : `sidebar`}`}>
           <div className="sidebar-header">
-            <h1 className='logo'>{`${collapsed ? `HC` : `Harmony Cloud`}`}</h1>
+            <h1 className='logo'>{`${collapsed ? `HK` : `Harmony Kloud`}`}</h1>
           </div>
 
           <div className="menu">
