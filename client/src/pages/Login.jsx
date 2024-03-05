@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { showLoading, hideLoading } from '../redux/alertsSlice'
+import logo from '../assets/HarmonyLogo.png'
 
 
 const Login = () => {
@@ -35,6 +36,7 @@ const Login = () => {
 
   return (
     <div className='authentication'>
+        <img src={logo} alt='Harmony Logo'/>
       <div className='authentication-form card p-3'>
         <h1 className='card-title'>Welcome Back</h1>
         <Form layout='vertical' onFinish={onFinish}>

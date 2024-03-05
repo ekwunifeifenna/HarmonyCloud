@@ -240,6 +240,20 @@ const AddClient = () => {
 
 
                 <Col span={8} xs={24} sm={24} lg={8}>
+                    <Form.Item name="country" label="Country">
+                        <Select placeholder="Select a country" onChange={setSelectedCountry} showSearch className='country-state-city'>
+                            {countries.map((country) => (
+                                <Select.Option key={country.isoCode} value={country.isoCode}>
+                                    {country.name}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+
+                </Col>
+
+
+                <Col span={8} xs={24} sm={24} lg={8}>
                     <Form.Item name="state" label="State">
                         <Select placeholder="Select a state" disabled={!selectedCountry} onChange={setSelectedState} showSearch>
                             {states.map((state) => (
@@ -358,8 +372,22 @@ const AddClient = () => {
 
 
                 <Col span={8} xs={24} sm={24} lg={8}>
+                    <Form.Item name="insuredCountry" label="Insured Country">
+                        <Select placeholder="Insured Country" onChange={setSelectedCountry} showSearch className='country-state-city'>
+                            {countries.map((country) => (
+                                <Select.Option key={country.isoCode} value={country.isoCode}>
+                                    {country.name}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+
+                </Col>
+
+
+                <Col span={8} xs={24} sm={24} lg={8}>
                     <Form.Item name="insuredState" label="Insured State">
-                        <Select placeholder="Inhsured State" disabled={!selectedCountry} onChange={setSelectedState} showSearch>
+                        <Select placeholder="Insured State" disabled={!selectedCountry} onChange={setSelectedState} showSearch>
                             {states.map((state) => (
                                 <Select.Option key={state.isoCode} value={state.isoCode}>
                                     {state.name}
@@ -496,6 +524,19 @@ const AddClient = () => {
                 <Col span={8} xs={24} sm={24} lg={8}>
                     <Form.Item required label='Insured Address ' name='insuredAddress' rules={[{ required: true }]}>
                         <Input placeholder='Address 1' />
+                    </Form.Item>
+
+                </Col>
+
+                <Col span={8} xs={24} sm={24} lg={8}>
+                    <Form.Item name="insuredCountry" label="Insured Country">
+                        <Select placeholder="Insured Country" onChange={setSelectedCountry} showSearch className='country-state-city'>
+                            {countries.map((country) => (
+                                <Select.Option key={country.isoCode} value={country.isoCode}>
+                                    {country.name}
+                                </Select.Option>
+                            ))}
+                        </Select>
                     </Form.Item>
 
                 </Col>
@@ -757,53 +798,12 @@ const AddClient = () => {
 
 
 
-
-
-
-
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </Form>
-
-
-
-
-
-
-
-
-
-
-
 
 
         </Layout>
     );
 };
-
 export default AddClient;
+
 

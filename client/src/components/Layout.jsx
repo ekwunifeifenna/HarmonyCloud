@@ -5,7 +5,8 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Badge } from "antd";
+import { Badge } from "antd"; 
+import logo from "../assets/HarmonyLogo.png";
 
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -70,11 +71,7 @@ const Layout = ({ children }) => {
       path: "/admin/userslist",
       icon: "ri-service-line",
     },
-    {
-      name: "Medical Records",
-      path: "/medical-records",
-      icon: "ri-survey-line",
-    },
+
     {
       name: "Billing",
       path: "/billing",
@@ -99,7 +96,8 @@ const Layout = ({ children }) => {
       <div className="d-flex layout">
         <div className={`${collapsed ? `collapsed-sidebar` : `sidebar`}`}>
           <div className="sidebar-header">
-            <h1 className='logo'>{`${collapsed ? `HK` : `Harmony Kloud`}`}</h1>
+          <h1 className='logo'>{collapsed ? `HK` : <img src={logo} alt="logo"/>}</h1>
+            {/* <h1 className='logo'>{`${collapsed ? `HK` : <img src ={logo} alt="logo"/>}`}</h1> */}
           </div>
 
           <div className="menu">
