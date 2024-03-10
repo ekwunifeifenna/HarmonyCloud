@@ -11,6 +11,7 @@ import Notifications from "./pages/Notifications";
 import DoctorsList from "./pages/Admin/DoctorsList";
 import Userslist from "./pages/Admin/Userslist";
 import AddClient from "./pages/Admin/AddClient";
+import ClientsList from "./pages/Admin/ClientsList";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
         <Route path="/admin/userslist" element={<ProtectedRoute><Userslist /></ProtectedRoute>} />
         <Route path="/admin/doctorslist" element={<ProtectedRoute><DoctorsList /></ProtectedRoute>} />
+        <Route path="/admin/clientslist" element={<ProtectedRoute><ClientsList /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );

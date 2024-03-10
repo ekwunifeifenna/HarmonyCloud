@@ -63,8 +63,8 @@ const UsersList = () => {
   return (
     <Layout>
         <div className='d-flex align-items-center justify-content-between'>
-        <h1 className='page-header'>Clients List</h1>
-        <Link to='/admin/add-client' className='link-button'>Add Client</Link>
+        <h1 className='page-header'>Users List</h1>
+        <Link to='/admin/add-client' className='link-button'>Add User</Link>
 
 
         </div>

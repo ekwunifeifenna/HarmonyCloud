@@ -68,6 +68,11 @@ const Layout = ({ children }) => {
 
     {
       name: "Clients",
+      path: "/admin/clientslist",
+      icon: "ri-service-line",
+    },
+    {
+      name: "Users",
       path: "/admin/userslist",
       icon: "ri-service-line",
     },

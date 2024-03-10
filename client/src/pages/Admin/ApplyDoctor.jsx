@@ -123,7 +123,7 @@ const ApplyDoctor = () => {
 
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Tax Type' name='taxType' rules={[{ required: true }]} >
+                    <Form.Item label='Tax Type' name='taxType' >
                         <Select placeholder='Tax Type' >
                             {taxItems.map((item, index) => <Select.Option key={index} value={item}>{item}</Select.Option>)}
                         </Select>
@@ -151,7 +151,7 @@ const ApplyDoctor = () => {
                             <p>Optional: Only needed if you defined a Therapist Type with a level, BCBA = Level 1, BCaBA = Level 3</p>
                         </div>
 
-                    </Form.Item>
+                    </Form.Item>  
 
                 </Col>
                 <Col span={8} xs={24} sm={24} lg={8}>
@@ -190,7 +190,7 @@ const ApplyDoctor = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item label='CAQH ID' name='caqh id'  >
+                    <Form.Item label='CAQH ID' name='caqhID'  >
                         <Input placeholder='CAQH ID' />
                     </Form.Item>
 
@@ -227,7 +227,7 @@ const ApplyDoctor = () => {
 
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Date Of Birth' name='dateOfBirth' rules={[{ required: true }]} >
+                    <Form.Item  label='Date Of Birth' name='dateOfBirth'  >
                         <DatePicker
                             initialValues={dayjs().format(dateFormat)}
                         />
@@ -286,7 +286,7 @@ const ApplyDoctor = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Address 1' name='address1' rules={[{ required: true }]}>
+                    <Form.Item label='Address 1' name='address1'>
                         <Input placeholder='Address 1' />
                     </Form.Item>
 
@@ -342,7 +342,7 @@ const ApplyDoctor = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Hire Date' name='hireDate' rules={[{ required: true }]} >
+                    <Form.Item label='Hire Date' name='hireDate' >
                         <DatePicker
                             initialValues={dayjs().format(dateFormat)}
                         />

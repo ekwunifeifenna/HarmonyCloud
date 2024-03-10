@@ -60,22 +60,109 @@ const DoctorsList = () => {
 
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            render: (text, record) => <span className="normal-text">{record.firstName} {record.lastName}</span>
+            title: 'Tax Type',
+            dataIndex: 'taxType',
+        },
+        {
+            title: 'Therapist Type',
+            dataIndex: 'therapistType',
+        },
+        {
+            title: 'Therapist Level',
+            dataIndex: 'therapistLevel',
+        },
+        {
+            title: 'Company Name',
+            dataIndex: 'companyName',
+        },
+        {
+            title: 'FEIN',
+            dataIndex: 'fein',
+        },
+        {
+            title: 'NPI',
+            dataIndex: 'npi',
+        },
+        {
+            title: 'Provider ID',
+            dataIndex: 'providerId',
+        },
+        {
+            title: 'State License Number',
+            dataIndex: 'stateLicenseNumber',
+        },
+        {
+            title: 'CAQH ID',
+            dataIndex: 'caqhID',
+        },
+        {
+            title: 'First Name',
+            dataIndex: 'firstName',
+        },
+        {
+            title: 'Middle Name',
+            dataIndex: 'middleName',
+        },
+        {
+            title: 'Last Name',
+            dataIndex: 'lastName',
+        },
+        {
+            title: 'Date Of Birth',
+            dataIndex: 'dateOfBirth',
+        },
+        {
+            title: 'Education',
+            dataIndex: 'education',
+        },
+        {
+            title: 'Gender',
+            dataIndex: 'gender'
+        },
+        {
+            title: 'SSN',
+            dataIndex: 'ssn'
+        },
+        {
+            title: 'Languages',
+            dataIndex: 'languages'
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email'
         },
         {
             title: 'Phone',
             dataIndex: 'phoneNumber'
         },
         {
-            title: 'Created At',
-            dataIndex: 'createdAt',
+            title: 'Address1',
+            dataIndex: 'address1'
         },
-
+        {
+            title: 'Address2',
+            dataIndex: 'address2'
+        },
+        {
+            title: 'City',
+            dataIndex: 'city'
+        },
+        {
+            title: 'State',
+            dataIndex: 'state'
+        },
+        {
+            title: 'Country',
+            dataIndex: 'country'
+        },
+        {
+            title: 'Hire Date',
+            dataIndex: 'hireDate'
+        },
+        
         {
             title: 'Status',
-            dataIndex: 'status',
+            dataIndex: 'status'
         },
         {
             title: 'Actions',
@@ -86,7 +173,8 @@ const DoctorsList = () => {
                     {record.status === 'approved' && <h1 className="anchor" onClick={()=>changeDoctorStatus(record, 'blocked')}>Block</h1>}
                 </div>
             )
-        }
+        },
+        
 
     ]
     return (

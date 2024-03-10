@@ -80,21 +80,21 @@ const AddClient = () => {
     const dateFormat = 'YYYY-MM-DD';
 
     const onFinish = async (values) => {
-        // try {
-        //     dispatch(showLoading())
-        //     const response = await axios.post('/api/admin/apply-doctor-account', { ...values, userId: user._id }, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, });
-        //     dispatch(hideLoading())
-        //     if (response.data.success) {
-        //         toast.success(response.data.message);
-        //         navigate('/');
-        //     } else {
-        //         toast.error(response.data.message);
-        //     }
+        try {
+            dispatch(showLoading())
+            const response = await axios.post('/api/admin/add-client-account', { ...values, userId: user._id }, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, });
+            dispatch(hideLoading())
+            if (response.data.success) {
+                toast.success(response.data.message);
+                navigate('/');
+            } else {
+                toast.error(response.data.message);
+            }
 
-        // } catch (error) {
-        //     dispatch(hideLoading())
-        //     toast.error('Something went wrong');
-        // }
+        } catch (error) {
+            dispatch(hideLoading())
+            toast.error('Something went wrong');
+        }
     };
 
 
@@ -225,7 +225,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Address 1' name='address1' rules={[{ required: true }]}>
+                    <Form.Item label='Address 1' name='address1'>
                         <Input placeholder='Address 1' />
                     </Form.Item>
 
@@ -297,7 +297,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item label='Group Policy #' name='groupPolicy#'  >
+                    <Form.Item label='Group Policy #' name='groupPolicyNumber'  >
                         <Input placeholder='Group Policy #' />
                     </Form.Item>
 
@@ -364,7 +364,7 @@ const AddClient = () => {
 
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Insured Address ' name='insuredAddress' rules={[{ required: true }]}>
+                    <Form.Item label='Insured Address' name='insuredAddress'>
                         <Input placeholder='Address 1' />
                     </Form.Item>
 
@@ -399,7 +399,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item name="insuredCity" label="insured City">
+                    <Form.Item name="insuredCity" label="Insured City">
                         <Select placeholder="Insured City" disabled={!selectedState} showSearch className='country-state-city'>
                             {cities.map((city) => (
                                 <Select.Option key={city.name} value={city.name}>
@@ -419,7 +419,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Primary Issued Date Of Birth' name='primaryIssuedDateOfBirth' rules={[{ required: true }]} >
+                    <Form.Item label='Primary Issued Date Of Birth' name='primaryIssuedDateOfBirth' >
                         <DatePicker
                             initialValues={dayjs().format(dateFormat)}
                         />
@@ -441,7 +441,7 @@ const AddClient = () => {
 
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Secondary Payer' name='secondaryPayer' rules={[{ required: true }]}>
+                    <Form.Item label='Secondary Payer' name='secondaryPayer'>
                         <Checkbox.Group options={primaryPayerOptions} onChange={onPrimaryPayerCheckboxChange} />
                     </Form.Item>
 
@@ -455,7 +455,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item label='Group Policy #' name='groupPolicy#'  >
+                    <Form.Item label='Group Policy #' name='groupPolicyNumber'  >
                         <Input placeholder='Group Policy #' />
                     </Form.Item>
 
@@ -511,7 +511,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item label='Primary Insured Gender' name='primaryInsuredGender' >
+                    <Form.Item label='Secondary Insured Gender' name='secondaryInsuredGender' >
                         <Select placeholder='Primary Insured Gender' >
                             {genderItems.map((item, index) => <Select.Option key={index} value={item}>{item}</Select.Option>)}
                         </Select>
@@ -522,7 +522,7 @@ const AddClient = () => {
 
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Insured Address ' name='insuredAddress' rules={[{ required: true }]}>
+                    <Form.Item label='Insured Address ' name='insuredAddress'>
                         <Input placeholder='Address 1' />
                     </Form.Item>
 
@@ -576,7 +576,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Primary Issued Date Of Birth' name='primaryIssuedDateOfBirth' rules={[{ required: true }]} >
+                    <Form.Item label='Primary Issued Date Of Birth' name='primaryIssuedDateOfBirth'>
                         <DatePicker
                             initialValues={dayjs().format(dateFormat)}
                         />
@@ -614,7 +614,7 @@ const AddClient = () => {
                 </Col>
                 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item label='Referring Physician Medicaid #' name='referringPhysicianMedicaid#'  >
+                    <Form.Item label='Referring Physician Taxonomy #' name='referringPhysicianMedicaidNumber'  >
                         <Input placeholder='Referring Physician Medicaid #' />
                     </Form.Item>
 
@@ -675,7 +675,7 @@ const AddClient = () => {
 
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item label='MD License #' name='MDLicense#'  >
+                    <Form.Item label='MD License #' name='MDLicenseNumber'  >
                         <Input placeholder='MD License #' />
                     </Form.Item>
 
@@ -692,7 +692,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Start of Service at' name='startOfServiceAt' rules={[{ required: true }]} >
+                    <Form.Item label='Start of Service at' name='startOfServiceAt' >
                         <DatePicker
                             initialValues={dayjs().format(dateFormat)}
                         />
@@ -701,7 +701,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Initial Assessment at' name='initialAssessmentAt' rules={[{ required: true }]} >
+                    <Form.Item label='Initial Assessment at' name='initialAssessmentAt' >
                         <DatePicker
                             initialValues={dayjs().format(dateFormat)}
                         />
@@ -710,7 +710,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Initial BASP at' name='initialBASPAT' rules={[{ required: true }]} >
+                    <Form.Item label='Initial BASP at' name='initialBASPAT' >
                         <DatePicker
                             initialValues={dayjs().format(dateFormat)}
                         />
@@ -720,7 +720,7 @@ const AddClient = () => {
 
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Coordinator Approval at' name='coordinatorApprovalAt' rules={[{ required: true }]} >
+                    <Form.Item label='Coordinator Approval at' name='coordinatorApprovalAt' >
                         <DatePicker
                             initialValues={dayjs().format(dateFormat)}
                         />
@@ -751,7 +751,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item required label='Support Plan at' name='supportPlanAt' rules={[{ required: true }]} >
+                    <Form.Item label='Support Plan at' name='supportPlanAt' >
                         <DatePicker
                             initialValues={dayjs().format(dateFormat)}
                         />
@@ -762,7 +762,7 @@ const AddClient = () => {
                 <hr />
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item label='Weekly BCBA/BCaBA/Analyst Hours' name='weeklyBCBA/BCaBA/AnalystHours' >
+                    <Form.Item label='Weekly BCBA/BCaBA/Analyst Hours' name='weeklyBCBABCaBAAnalystHours' >
                         <div className="d-flex gap-10">
                             <Input placeholder='Weekly BCBA/BCaBA/Analyst Hours' type='number' />
                             <p>Used to enforce limit at the client level, this could be controlled at the company level in Settings</p>
@@ -773,7 +773,7 @@ const AddClient = () => {
                 </Col>
 
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item label='Weekly RBT/Assistant Hours' name='weeklyRBT/AssistantHours' >
+                    <Form.Item label='Weekly RBT/Assistant Hours' name='weeklyRBTAssistantHours' >
                         <div className="d-flex gap-10">
                             <Input placeholder='Weekly RBT/Assistant Hours' type='number' />
                             <p>Used to enforce limit at the client level, this could be controlled at the company level in Settings</p>
@@ -794,8 +794,10 @@ const AddClient = () => {
 
                 </Col>
 
-                <Button className='primary-button' htmlType='submit'>CREATE CLIENT</Button>
-
+                <div className="d-flex gap-10">
+                    <Button className='primary-button' htmlType='submit'>CREATE CLIENT</Button>
+                    <Button className='secondary-button' onClick={() => navigate('/')}>CANCEL</Button>
+                </div>
 
 
             </Form>
@@ -804,6 +806,6 @@ const AddClient = () => {
         </Layout>
     );
 };
-export default AddClient;
 
+export default AddClient;
 
