@@ -7,6 +7,12 @@
     color: white;
     font-weight: bold;
     text-decoration: none;
+    background-color: white !important;
+    max-height: 110px !important;
+    text-align: center;
+    
+
+    
 
 }
 

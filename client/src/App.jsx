@@ -12,6 +12,7 @@ import DoctorsList from "./pages/Admin/DoctorsList";
 import Userslist from "./pages/Admin/Userslist";
 import AddClient from "./pages/Admin/AddClient";
 import ClientsList from "./pages/Admin/ClientsList";
+import Profile from "./pages/Doctor/Profile";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/admin/userslist" element={<ProtectedRoute><Userslist /></ProtectedRoute>} />
         <Route path="/admin/doctorslist" element={<ProtectedRoute><DoctorsList /></ProtectedRoute>} />
         <Route path="/admin/clientslist" element={<ProtectedRoute><ClientsList /></ProtectedRoute>} />
+        <Route path="/doctor/profile/:userId" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );

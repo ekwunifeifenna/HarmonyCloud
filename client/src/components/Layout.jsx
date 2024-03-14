@@ -24,11 +24,7 @@ const Layout = ({ children }) => {
       path: "/appointments",
       icon: "ri-file-list-line",
     },
-    {
-      name: "Add Therapist",
-      path: "/apply-doctor",
-      icon: "ri-hospital-line",
-    },
+
 
     {
       name: "Medical Records",
@@ -60,7 +56,8 @@ const Layout = ({ children }) => {
       path: "/",
       icon: "ri-home-line",
     },
-    {
+
+       {
       name: "Therapists",
       path: "/admin/doctorslist",
       icon: "ri-nurse-line"
@@ -94,7 +91,34 @@ const Layout = ({ children }) => {
     },
   ];
 
-  const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
+
+  const doctorMenu = [
+    {
+      name: "Dashboard",
+      path: "/",
+      icon: "ri-home-line",
+    },
+    {
+      name: "Appointments",
+      path: "/appointments",
+      icon: "ri-file-list-line",
+    },
+    {
+      name: "profile",
+      path: `/doctor/profile/${user?.userId}`,
+      // path: `/doctor/profile`,
+      icon: "ri-user-line",
+    },
+    {
+      name: "Settings",
+      path: "/settings",
+      icon: "ri-settings-2-line",
+    },
+
+  ]
+
+  // const menuToBeRendered = user?.isAdmin ? adminMenu : user?.isDoctor ? doctorMenu : userMenu;
+  const menuToBeRendered = user?.role === 'admin' ? adminMenu : user?.role === 'doctor' ? doctorMenu : userMenu;
 
   return (
     <div className="main">
@@ -143,11 +167,11 @@ const Layout = ({ children }) => {
 
             {/**This is the second part of the header FOR THE NOTIFICATIONS*/}
             <div className="d-flex align-items-center px-3">
-              <Badge count={user?.unseenNotifications.length} onClick={()=>navigate('/notifications')}>
+              <Badge count={user?.unseenNotifications?.length} onClick={()=>navigate('/notifications')}>
                 <i className="ri-notification-line header-action-icon mr-2 px-3"></i>
               </Badge>
 
-              <Link className='anchor mx-3' to='/profile' >{user?.name}</Link>
+              <Link className='anchor mx-3' to='/profile' >{user?.name || (user?.firstName + ' ' + user?.lastName )}</Link>
 
             </div>
 

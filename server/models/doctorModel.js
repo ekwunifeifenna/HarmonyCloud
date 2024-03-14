@@ -5,6 +5,11 @@ const doctorSchema = new mongoose.Schema(
         type: String,
         required: true,
     },
+    profilePicture: {
+        type: String,
+        default: 'default-profile-picture-url', // Replace with the URL of your default profile picture
+    },
+  
     // company: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'companies',
@@ -83,6 +88,10 @@ const doctorSchema = new mongoose.Schema(
         required: [true, 'Please enter your email'],
         unique: true,
     },
+    password: {
+        type: String,
+        required: [true, 'Please enter your password'],
+    },
     phoneNumber: {
         type: String,
         required: [true, 'Please enter your phone number'],
@@ -110,6 +119,11 @@ const doctorSchema = new mongoose.Schema(
     hireDate:{
         type: Date,
         // required: [true, 'Please enter your hire date'],
+    },
+    role: {
+        type: String,
+        default: 'doctor',
+
     },
 
 },

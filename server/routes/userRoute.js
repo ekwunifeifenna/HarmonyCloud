@@ -8,62 +8,73 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 router.post('/register', async (req, res) => {
     try {
-        const userExists = await User.findOne({email: req.body.email});
-        if(userExists) {
-            res.status(200).send({message: 'User already exists', success: false});
-        } 
+        const userExists = await User.findOne({ email: req.body.email });
+        if (userExists) {
+            res.status(200).send({ message: 'User already exists', success: false });
+        }
         const password = req.body.password;
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
         req.body.password = hashedPassword;
         const newUser = new User(req.body);
         await newUser.save();
-        res.status(200).send({message: 'User registered successfully', success: true});
-        
+        res.status(200).send({ message: 'User registered successfully', success: true });
+
     } catch (error) {
         console.log(error);
-        res.status(500).send({message: 'Error creating user', success: false});
-        
+        res.status(500).send({ message: 'Error creating user', success: false });
+
     }
 });
 
 
 router.post('/login', async (req, res) => {
     try {
-        const user = await User.findOne({email: req.body.email});
-        if(!user) {
-            res.status(200).send({message: 'User not found', success: false});
+        const user = await User.findOne({ email: req.body.email });
+        const doctor = await Doctor.findOne({ email: req.body.email });
+        let account = user || doctor;
+        if (!account) {
+            res.status(200).send({ message: 'Account not found', success: false });
         }
-        const isMatch = await bcrypt.compare(req.body.password, user.password);
-        if(!isMatch) {
-            res.status(200).send({message: 'Invalid credentials', success: false});
+        const isMatch = await bcrypt.compare(req.body.password, account.password);
+        if (!isMatch) {
+            res.status(200).send({ message: 'Invalid credentials', success: false });
         } else {
-            const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1d'});
-            res.status(200).send({message: 'Login successful', success: true, token: token});   
+            const payload = { id: account._id, role: account.role };
+            if (doctor) {
+                payload.userId = doctor.userId;
+            }
+            const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1d'});
+            res.status(200).send({ message: 'Login successful', success: true, token: token });
         }
-        
+
     } catch (error) {
         console.log(error);
-        res.status(500).send({message: 'Error logging in', success: false});
-        
+        res.status(500).send({ message: 'Error logging in', success: false });
+
     }
 });
 
-router.post('/get-user-info-by-id', authMiddleware, async(req, res)=>{
+router.post('/get-user-info-by-id', authMiddleware, async (req, res) => {
     try {
-        console.log(req.body);
-        console.log(req.body.userId);
-        const user = await User.findOne({_id: req.body.userId});
-        user.password = undefined
-        if(!user) {
-            return res.status(200).send({message: 'User not found', success: false});
-        }else {
-            res.status(200).send({ success: true, user: user});
+        // console.log(req.body);
+        // console.log(req.body.userId);
+        const user = await User.findOne({ _id: req.body.userId });
+        const doctor = await Doctor.findOne({ _id: req.body.userId });
+        let account = user || doctor;
+        // user.password = undefined
+        if (account) {
+            account.password = undefined;
+            res.status(200).send({ success: true, user: account });
+            // return res.status(200).send({message: 'User not found', success: false});
+        } else {
+            // res.status(200).send({ success: true, user: user});
+            return res.status(200).send({ message: 'User not found', success: false });
         }
-        
+
     } catch (error) {
-        res.status(500).send({message: 'Error getting user info', success: false});
-        
+        res.status(500).send({ message: 'Error getting user info', success: false });
+
     }
 })
 
@@ -88,53 +99,53 @@ router.post('/get-user-info-by-id', authMiddleware, async(req, res)=>{
 //         await User.findOneAndUpdate(adminUser._id, { unseenNotifications});
 //         res.status(200).send({message: 'Doctor account application submitted successfully', success: true});
 
-      
-        
+
+
 //     } catch (error) {
 //         console.log(error);
 //         res.status(500).send({message: 'Error applying doctor account', success: false});
-        
+
 //     }
 // });
 
 router.post('/mark-all-notifications-as-seen', authMiddleware, async (req, res) => {
     try {
-        const user = await User.findOne({_id: req.body.userId});
+        const user = await User.findOne({ _id: req.body.userId });
         const unseenNotifications = user.unseenNotifications;
 
         const seenNotifications = user.seenNotifications
 
         seenNotifications.push(...unseenNotifications);
-        
+
         user.unseenNotifications = []
         user.seenNotifications = seenNotifications
 
-        const updatedUser = await user.save()  
-        updatedUser.password = undefined    
-        res.status(200).send({message: 'Notifications marked as read', success: true, data: updatedUser});
-        
+        const updatedUser = await user.save()
+        updatedUser.password = undefined
+        res.status(200).send({ message: 'Notifications marked as read', success: true, data: updatedUser });
+
     } catch (error) {
         console.log(error);
-        res.status(500).send({message: 'Error applying doctor account', success: false});
-        
+        res.status(500).send({ message: 'Error applying doctor account', success: false });
+
     }
 });
 
 router.post('/delete-all-notifications', authMiddleware, async (req, res) => {
     try {
-        const user = await User.findOne({_id: req.body.userId});
+        const user = await User.findOne({ _id: req.body.userId });
 
         user.unseenNotifications = []
         user.seenNotifications = []
 
-        const updatedUser = await user.save() 
-        updatedUser.password = undefined    
-        res.status(200).send({message: 'Notifications deleted', success: true, data: updatedUser});
-        
+        const updatedUser = await user.save()
+        updatedUser.password = undefined
+        res.status(200).send({ message: 'Notifications deleted', success: true, data: updatedUser });
+
     } catch (error) {
         console.log(error);
-        res.status(500).send({message: 'Error applying doctor account', success: false});
-        
+        res.status(500).send({ message: 'Error applying doctor account', success: false });
+
     }
 });
 

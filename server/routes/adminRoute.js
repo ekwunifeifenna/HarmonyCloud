@@ -171,11 +171,27 @@ router.get('/get-all-users', authMiddleware, async(req, res) => {
 
 router.post('/apply-doctor-account', authMiddleware, async (req, res) => {
     try { 
-        const newdoctor = new Doctor(req.body);
+        const password = req.body.password;
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        req.body.password = hashedPassword;
+        
+        // const newdoctor = new Doctor(req.body);
+        
+        const newdoctor = new Doctor({
+            ...req.body,
+            userId: req.user.userId,
+        });
         await newdoctor.save();
         const adminUser = await User.findOne({isAdmin: true});
 
         const unseenNotifications = adminUser.unseenNotifications
+
+        
+        
+        
+        
+
 
         //notification sent to admin
         unseenNotifications.push({
