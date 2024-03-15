@@ -18,8 +18,10 @@ import '../../styles/profile.css';
 const Profile = () => {
 
   const dispatch = useDispatch();
-  const { userId } = useParams(); // Get doctorId from URL
+  // const { userId } = useParams(); // Get doctorId from URL
+  // const { userId } = useSelector(state => state.user.userId);
   const { user } = useSelector(state => state.user);
+  const userId = user? user.userId : null;
   const [doctor, setDoctor] = useState(null);
   const navigate = useNavigate();
 
@@ -31,10 +33,10 @@ const Profile = () => {
 
   const onFinish = async (values) => {
     try {
-        dispatch(showLoading())
+        dispatch(showLoading()) 
         console.log(userId, values)
         // const response = await axios.post('/api/doctor/update-doctor-info', { ...values, userId: userId }, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, });
-        const response = await axios.post('/api/doctor/update-doctor-info', { ...values, _id: userId }, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, });
+        const response = await axios.post('/api/doctor/update-doctor-info', { ...values, userId: userId }, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, });
 
         dispatch(hideLoading())
         if (response.data.success) {
@@ -57,6 +59,7 @@ useEffect(() => {
       try {
           dispatch(showLoading())
           const response = await axios.post("/api/doctor/get-doctor-info-by-user-id", { userId: userId,},
+          // const response = await axios.post(`/api/doctor/get-doctor-info-by-user-id/${userId}`, { userId: userId,},
         //   {token: localStorage.getItem("token")}, 
           {
               headers: {
@@ -80,6 +83,7 @@ useEffect(() => {
 
 
 }, [userId, dispatch, navigate]);
+console.log(userId)
 
 
   return (
@@ -125,8 +129,8 @@ useEffect(() => {
           <div>
             <Descriptions title="Therapist Info" bordered>
               <Descriptions.Item label="User ID">{doctor.userId}</Descriptions.Item>
-              <Descriptions.Item label="Tax Type">{doctor.taxType.join(', ')}</Descriptions.Item>
-              <Descriptions.Item label="Therapist Type">{doctor.therapistType.join(', ')}</Descriptions.Item>
+              <Descriptions.Item label="Tax Type">{doctor.taxType}</Descriptions.Item>
+              <Descriptions.Item label="Therapist Type">{doctor.therapistType}</Descriptions.Item>
               <Descriptions.Item label="Therapist Level">{doctor.therapistLevel}</Descriptions.Item>
               <Descriptions.Item label="Company Name">{doctor.companyName}</Descriptions.Item>
               <Descriptions.Item label="FEIN">{doctor.fein}</Descriptions.Item>
@@ -139,7 +143,7 @@ useEffect(() => {
               <Descriptions.Item label="Last Name">{doctor.lastName}</Descriptions.Item>
               <Descriptions.Item label="Date of Birth">{doctor.dateOfBirth}</Descriptions.Item>
               <Descriptions.Item label="Education">{doctor.education.join(', ')}</Descriptions.Item>
-              <Descriptions.Item label="Gender">{doctor.gender.join(', ')}</Descriptions.Item>
+              <Descriptions.Item label="Gender">{doctor.gender}</Descriptions.Item>
               <Descriptions.Item label="SSN">{doctor.ssn}</Descriptions.Item>
               <Descriptions.Item label="Languages">{doctor.languages.join(', ')}</Descriptions.Item>
               <Descriptions.Item label="Email">{doctor.email}</Descriptions.Item>
@@ -255,5 +259,6 @@ useEffect(() => {
     </Layout>
   );
 };
+
 
 export default Profile;

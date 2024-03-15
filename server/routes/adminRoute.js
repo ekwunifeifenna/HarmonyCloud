@@ -180,7 +180,7 @@ router.post('/apply-doctor-account', authMiddleware, async (req, res) => {
         
         const newdoctor = new Doctor({
             ...req.body,
-            userId: req.user.userId,
+            userId: req.body.userId,
         });
         await newdoctor.save();
         const adminUser = await User.findOne({isAdmin: true});

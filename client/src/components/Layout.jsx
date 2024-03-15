@@ -105,7 +105,7 @@ const Layout = ({ children }) => {
     },
     {
       name: "profile",
-      path: `/doctor/profile/${user?.userId}`,
+       path: `/doctor/profile/${user?.userId}`,
       // path: `/doctor/profile`,
       icon: "ri-user-line",
     },

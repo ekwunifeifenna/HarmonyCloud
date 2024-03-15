@@ -6,6 +6,7 @@ const Joi = require('joi');
 
 const doctorSchema = Joi.object({
     userId: Joi.string().required(),
+    profilePicture: Joi.string(),
     taxType: Joi.array().items(Joi.string()),
     therapistType: Joi.array().items(Joi.string()).required(),
     therapistLevel: Joi.string(),
@@ -24,7 +25,7 @@ const doctorSchema = Joi.object({
     ssn: Joi.string(),
     languages: Joi.array().items(Joi.string()),
     email: Joi.string().email().required(),
-    password: Joi.string().required(),
+    password: Joi.string(),
     phoneNumber: Joi.string().required(),
     address1: Joi.string().required(),
     address2: Joi.string(),
@@ -38,10 +39,15 @@ const doctorSchema = Joi.object({
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
 
-router.post('/get-doctor-info-by-user-id', authMiddleware, async(req, res)=>{
+// router.post('/get-doctor-info-by-user-id/:userId', authMiddleware, async(req, res)=>{
+    router.post('/get-doctor-info-by-user-id', authMiddleware, async(req, res)=>{
+        const { userId } = req.body;
+        console.log(userId)
     try {
-        const doctor = await Doctor.findOne({_id: req.body.userId});
-        // console.log(req.body.userId, doctor)
+        
+        const doctor = await Doctor.findOne({userId: userId});
+        
+        
         res.status(200).send({message: 'Doctor info fetched successfully', success: true, data: doctor})
         
         
@@ -56,12 +62,13 @@ router.post('/update-doctor-info', authMiddleware, async(req, res)=>{
     console.log(req.body)
     try {
         const { error } = doctorSchema.validate(req.body);
+        console.log(error)
         if (error) {
             return res.status(400).send({message: error.details[0].message, success: false});
         }
 
         // const doctor = await Doctor.findOneAndUpdate({userId: req.body.userId}, req.body, {new: true});
-        const doctor = await Doctor.findOneAndUpdate({_id: req.body.userId}, req.body, {new: true});
+        const doctor = await Doctor.findOneAndUpdate({userId: req.body.userId}, req.body, {new: true});
         res.status(200).send({message: 'Doctor info updated successfully', success: true, data: doctor});
     } catch (error) {
         res.status(500).send({message: 'Error updating doctor info', success: false, error});
